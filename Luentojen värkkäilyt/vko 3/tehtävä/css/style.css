@@ -1,0 +1,36 @@
+body{
+    background-color: #f0f0f0;
+}
+#sisalto{
+    background-color: #fff;
+    padding: 1em;
+}
+h1{
+    border-bottom: 1px solid #333;
+}
+.korostettu{
+    font-weight: bold;
+    font-size: 1.2em;
+}
+ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+ul.resepti{
+    list-style-type: disc;
+    margin-left: 1em;
+}
+ul.resepti>li{
+    color: #561a0e;
+}
+ul a{
+    text-decoration: none;
+    color: #333;
+}
+ul a:hover{
+    font-weight: bold;
+}
+:not(.resepti li){
+    margin-bottom: 10px;
+}
