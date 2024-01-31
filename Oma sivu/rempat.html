@@ -4,24 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Rempat</title>
 
 </head>
 <body>
-    <div id="rempat">
         <img src="./images/Vasara ja nauloja.jpg" alt="" width="100%">
-        <div id="overlay">        <div id="linkit">
-            <ul>
-                <li><a href="./main.html">Alkuun</a></li>
-                <li><a href="./asunnot.html">Asunnot</a></li>
-                <li><a href="./loma-asunnot.html">Loma-asunnot ja mökit</a></li>
-                <li><a href="./lomaosakkeet.html">Lomaosakkeet</a></li>
-                <li><a href="./liike-jatoimitilat.html">Liike- ja toimitilat</a></li>
-                <li><a href="./tontit.html">Tontit, maa- ja metsätilat</a></li>
-                <li><a href="./muut.html">Muut</a></li>
-            </ul>
-        </div>
-            <h1>Rempat</h1>
+        <div id="header"></div>
+        <h1>Rempat</h1>
             <p>Omistan joitakin vuokra-asuntoja/kiintestöjä, joihin on ajansaatossa tullut tehtyä jos jonkinlaista remonttia. Lisäksi toiminimen kautta olen tehnyt pieniä remontteja kuluttajille.</p>
             <p>Mikäli kaipaat apua esimerkiksi seuraavissa töissä, ota yhteyttä:</p>
             <div id="remppatyöt">
@@ -35,15 +25,11 @@
                 </ul>
             </div>
         </div>
-        <div id="linkit">
-            <footer>
-
-                <ul>
-                    <li><a href="./rempat.html">Rempat</a></li>
-                    <li><a href="./yhteystiedot.html">Yhteystiedot</a></li>
-                    <li><a href="https://huutokaupat.com/j-m-realisointi" target="_blank">Nyt minun myynnissä olevat kohteet</a></li>
-                </ul>
-            </footer>
+        <div id="footer"></div>
+        <script>
+            $("#header").load("common/header.html");
+                $("#footer").load("common/footer.html");
+        </script>
         </div>
     </div>
 </body>

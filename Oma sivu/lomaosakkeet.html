@@ -4,23 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Lomaosakkeet</title>
 </head>
 <body>
-    <img src="./images/cape-verde-3442859.jpg" alt="" width="100%">
-    <div id="lomaosakkeet">    
-        <div id="overlay">    
-        <div id="linkit">
-            <ul>
-                <li><a href="./main.html">Alkuun</a></li>
-                <li><a href="./asunnot.html">Asunnot</a></li>
-                <li><a href="./loma-asunnot.html">Loma-asunnot ja mökit</a></li>
-                <li><a href="./lomaosakkeet.html">Lomaosakkeet</a></li>
-                <li><a href="./liike-jatoimitilat.html">Liike- ja toimitilat</a></li>
-                <li><a href="./tontit.html">Tontit, maa- ja metsätilat</a></li>
-                <li><a href="./muut.html">Muut</a></li>
-            </ul>
-        </div>
+    <img src="./images/ai-generated-8404237_1920.jpg" alt="" width="100%">
+    <div id="header"></div>
         <h1>Lomaosakkeet</h1>
         <p>Täältä löydät päättyneiden huutokauppojen hintoja lomaosakkeiden osalta.</p>
     <br><br><br><br>
@@ -48,15 +37,11 @@
             </tr>
 
         </table>
-        <div id="linkit">
-            <footer>
-                <br>
-                <ul>
-                    <li><a href="./rempat.html">Rempat</a></li>
-                    <li><a href="./yhteystiedot.html">Yhteystiedot</a></li>
-                    <li><a href="https://huutokaupat.com/j-m-realisointi" target="_blank">Nyt minun myynnissä olevat kohteet</a></li>
-                </ul>
-            </footer>
+        <div id="footer"></div>
+        <script>
+            $("#header").load("common/header.html");
+                $("#footer").load("common/footer.html");
+        </script>
         </div>
     </div></div>    
 </body>

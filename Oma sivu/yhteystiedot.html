@@ -4,20 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Yhteystiedot</title>
 </head>
 <body>
-    <div id="linkit">
-        <ul>
-            <li><a href="./main.html">Alkuun</a></li>
-            <li><a href="./asunnot.html">Asunnot</a></li>
-            <li><a href="./loma-asunnot.html">Loma-asunnot ja mökit</a></li>
-            <li><a href="./lomaosakkeet.html">Lomaosakkeet</a></li>
-            <li><a href="./liike-jatoimitilat.html">Liike- ja toimitilat</a></li>
-            <li><a href="./tontit.html">Tontit, maa- ja metsätilat</a></li>
-            <li><a href="./muut.html">Muut</a></li>
-        </ul>
-    </div>
+    <div id="header"></div>
     <h1>Minut tavoittaa parhaiten:</h1>
     <br><p>Sähköpostilla</p>
     <p><a href="mailto:jm.realisointi@gmail.com?Subject=Yhteydenottopyyntö" target="_top">jm.realisointi(a)gmail.com</a></p>
@@ -41,15 +32,10 @@
     <br><input type="number" name="robotcheck" id="robotcheck">
     <input type="button" value="Lähetä">
 
-    <div id="linkit">
-        <footer>
-
-            <ul>
-                <li><a href="./rempat.html">Rempat</a></li>
-                <li><a href="./yhteystiedot.html">Yhteystiedot</a></li>
-                <li><a href="https://huutokaupat.com/j-m-realisointi" target="_blank">Nyt minun myynnissä olevat kohteet</a></li>
-            </ul>
-        </footer>
-    </div>
+    <div id="footer"></div>
+    <script>
+        $("#header").load("common/header.html");
+            $("#footer").load("common/footer.html");
+    </script>
 </body>
 </html>

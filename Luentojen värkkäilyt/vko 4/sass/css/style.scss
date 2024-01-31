@@ -1,0 +1,65 @@
+@import "variables";
+@import "reset";
+@import "mixins";
+@import "menu";
+
+
+a{
+    text-decoration: none;
+    &:hover{
+        color: $accent-color;
+        font-weight: bold;
+    }
+}
+
+div#container {
+    display: flex;
+    flex-direction: column;
+    margin: $general-marigin;
+}
+
+div#content {
+    display: inherit;
+    section {
+        display: inherit;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 80vw;
+        margin: $general-marigin;
+    }
+    aside {
+        width: 20vw;
+        padding: $general-padding;
+    }
+}
+
+header{
+    @include flex-container;
+}
+
+article {
+    flex: 33.33%;
+    div{
+        margin: $general-marigin;
+        border: 1px solid $grey-foreground-color;
+        img{
+            height: 500px;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        h3,p{
+            margin: $general-marigin;
+        }
+    }
+}
+
+footer {
+    @include flex-container;
+    background-color: $dark-background-color;
+    p{
+        color: $light-foreground-color;
+    }
+}
+
+@import "media-query";
