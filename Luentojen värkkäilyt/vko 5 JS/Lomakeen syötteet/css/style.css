@@ -1,0 +1,19 @@
+body{
+    display: flex;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+form div{
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+span{
+    color: #ff0000;
+    display: block;
+}
+
+button {
+    padding: 8px;
+}
