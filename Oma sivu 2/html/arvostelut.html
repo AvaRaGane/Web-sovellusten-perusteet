@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Arvostellut elokuvat</title>
+</head>
+<body>
+    <div id="header"></div>
+    <h1>Arvostellut elokuvat</h1>
+    <div>
+        <h2>Täältä näet sivuston käyttäjien arvostelemia elokuvia.</h2>
+        <h3>Taulukon lopussa on lomake, jolla pääset lisäämään arvostelusi.</h3>
+        <p></p>
+        <p></p>
+    </div>
+    <div id="taulukko">
+        <output id="arvostelut"></output>
+    </div>
+    <div id=lomake>
+        <form action="./code/lähetäArvio.js" method="post">
+            <label for="ID">Anna TMDB elokuvan ID:</label><br>
+            <input type="text" name="ID" required>
+            <br>
+            <label for="Arvosana" aria-valuemax="10" aria-valuemin="0">Anna elokuvalle arvosana (1-10)</label><br>
+            <input type="number" name="Arvosana" required>
+            <br>
+            <label for="arvio">Anna elokuvalle sanallinen arvio:</label>
+            <br>
+            <textarea name="arvio" id="arvio" cols="30" rows="10" required></textarea><br>
+            <input type="reset" value="Tyhjennä lomake">
+            <input type="submit" name="laheta" value="Lähetä tiedot">
+        </form>
+    </div>
+    <div id="footer"></div>
+    <script>
+        $("#header").load("common/header.html");
+        $("#footer").load("common/footer.html");
+    </script>
+    <script src="./code/js/lähetäArvio.js"></script>
+</body>
+</html>
