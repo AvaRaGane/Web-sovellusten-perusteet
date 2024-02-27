@@ -83,7 +83,7 @@ document.querySelector('button').addEventListener('click',() =>{
         method: 'GET',
         headers: {
           accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YmQ3OGQzMmM5NjVkM2U2OWExM2JmZTVjYzA5M2FlMCIsInN1YiI6IjY1Y2Y4YmQzMzVkYjQ1MDE3ZTE4ZTRmMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VAPvCkfzEeLzNfwLAlbN4-ACF2OFZyMt70btpWfWBQI'
+          Authorization: 'TÄHÄN API'
         }
     };
       

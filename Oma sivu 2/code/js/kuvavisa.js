@@ -2,18 +2,23 @@ const options = {
     method: 'GET',
     headers: {
         accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YmQ3OGQzMmM5NjVkM2U2OWExM2JmZTVjYzA5M2FlMCIsInN1YiI6IjY1Y2Y4YmQzMzVkYjQ1MDE3ZTE4ZTRmMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VAPvCkfzEeLzNfwLAlbN4-ACF2OFZyMt70btpWfWBQI'
+        Authorization: 'TÄHÄN API'
     }
 };
-let pisteet = 0;
-let name = "player2";
-let genreU = '';
-let year=0;
-console.log(name);
-let spokenLanguage = "en";
 document.getElementById('language').value = "en";
+const peliAsetukset = {
+    pisteet: 0,
+    name: "player2",
+    genreU: "",
+    year: 0,
+    spokenLanguage: "en",
+    totalResults: 0,
+    fetchData: null,
+    randomPage: 1,
+    arvottuElokuva: null
+};
 
-if (name == "player2") {
+if (peliAsetukset.name == "player2") {
     document.querySelector('div#pisteOutput').style.display = "none";
     document.querySelector('div#kuvaInput').style.display = "none";
     document.querySelector('div#vastausInput').style.display = "none";
@@ -21,117 +26,117 @@ if (name == "player2") {
     document.querySelector('select#language').addEventListener('change', () => {
         const selectedValue = document.querySelector('select#language').value;
         if (selectedValue === "fi") {
-            spokenLanguage = document.getElementById('language').value;
+            peliAsetukset.spokenLanguage = document.getElementById('language').value;
             document.querySelector('div#genreInput').style.display = "none";
         } else {
-            spokenLanguage = document.getElementById('language').value;
+            peliAsetukset.spokenLanguage = document.getElementById('language').value;
             document.querySelector('div#genreInput').style.display = "block";
         }
     });
 
     document.querySelector('#lähetäNimi').addEventListener('click', () => {
-        name = document.querySelector('#nimi').value
-        console.log(name)
-        genreU = document.getElementById('genre').value;
+        peliAsetukset.name = document.querySelector('#nimi').value
+        console.log(peliAsetukset.name)
+        peliAsetukset.genreU = document.getElementById('genre').value;
         startGame();
     })
 }
 
 const startGame = () => {
-    //nimi näkymä pois ja muut esille.
+    //aloitus näkymä pois ja muut esille.
     document.querySelector('div#nimiInput').style.display = "none"
-    //document.querySelector('div#kieliInput').style.display = "block"
     document.querySelector('div#genreInput').style.display = "block"
     document.querySelector('div#pisteOutput').style.display = "block"
     document.querySelector('div#kuvaInput').style.display = "block"
     document.querySelector('div#vastausInput').style.display = "block"
-    document.querySelector('div#aloitusTeksti').innerHTML = "Noniin, " + name + " aloitetaan peli."
-    document.querySelector('#pisteet').innerHTML = pisteet
+    document.querySelector('div#aloitusTeksti').innerHTML = "Noniin, " + peliAsetukset.name + " aloitetaan peli."
+    document.querySelector('#pisteet').innerHTML = peliAsetukset.pisteet
 
-    console.log('kieli: ' + spokenLanguage)
-    console.log('genre ennen iffiä: ' + genreU)
+    //console.log('kieli: ' + peliAsetukset.spokenLanguage)
+    //console.log('genre ennen iffiä: ' + peliAsetukset.genreU)
 
-    if (spokenLanguage == 'fi') {
-        genreU = ''
+    if (peliAsetukset.spokenLanguage == 'fi') {
+        peliAsetukset.genreU = ''
     }
-    console.log('genre iffin jälkeen: ' + genreU)
-    haeElokuva()
-    document.querySelector('#arvaa').addEventListener('click', () =>{
-        const arvattuVuosikymmen=document.querySelector('#vuosikymmen').value
+    //console.log('genre iffin jälkeen: ' + peliAsetukset.genreU)
+    haeData()
+    //datasta valittu sivu ja valittu elokuva tulostukseen
+    document.querySelector('#arvaa').addEventListener('click', () => {
+        const arvattuVuosikymmen = document.querySelector('#vuosikymmen').value
         console.log(arvattuVuosikymmen)
-        if ((year>arvattuVuosikymmen)&&(year<arvattuVuosikymmen+10)){
-            pisteet++
-            startGame()
-        }else{
+        if ((peliAsetukset.year >= arvattuVuosikymmen) && (peliAsetukset.year < arvattuVuosikymmen + 10)) {
+            console.log('Oikein!')
+            peliAsetukset.pisteet++
+            document.querySelector('div#aloitusTeksti').innerHTML = "Oikein meni, " + peliAsetukset.name + " jatketaan peliä."
+            document.querySelector('#pisteet').innerHTML = peliAsetukset.pisteet
+            console.log('Pisteitä: '+peliAsetukset.pisteet)
+            haeData()
+        } else {
+            console.log('Väärin. Peli päättyi, pisteitä: '+peliAsetukset.pisteet)
             gameover()
         }
     })
 }
 
-const haeElokuva = () => {
-    fetch('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=fi-FI&vote_average.gte=5&primary_release_date.gte=1960-01-01&with_original_language=' + spokenLanguage + '&page=1&sort_by=popularity.desc&with_genres=' + genreU, options)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            console.log('data.total_results:' + data.total_results)
-            const totalResults = data.total_results;
-            console.log('totalResults:' + totalResults)
-            // Tarkista, että saadut tulokset eivät ole tyhjiä
-            if (totalResults > 0) {
-                // Arvotaan satunnainen sivu
-
-                const maxPages = 500; // TMDB:n maksimisivujen määrä
-                const resultsPerPage = 20; // Tulosten määrä per sivu TMDB:ssä   
-                let randomPage = 0
-                if (totalResults / resultsPerPage > maxPages) {
-                    randomPage = Math.floor(Math.random() * maxPages) + 1;
-                } else {
-                    randomPage = Math.floor(Math.random() * (Math.ceil(totalResults / resultsPerPage))) + 1;
-                }
-                console.log('randomPage:' + randomPage)
-                // Hae elokuvat valitulta sivulta
-                fetch('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=fi-FI&vote_average.gte=5&primary_release_date.gte=1960-01-01&with_original_language=' + spokenLanguage + '&page=' + randomPage + '&sort_by=popularity.desc&with_genres=' + genreU, options)
-
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('data2:')
-                        console.log(data)
-                        // Varmista, että saadut tulokset eivät ole tyhjiä
-                        if (data.results && data.results.length > 0) {
-                            //arvotaan elokuva saadusta max 20 elokuvasta
-
-                            //console.log('data results:'+data.results);                
-                            let selectedMovie = arvoElokuva(data);
-                            // Arvotaan uusiksi, jos elokuvalla ei ole kuvaa
-                            while (selectedMovie.poster_path == null) {
-                                selectedMovie = arvoElokuva(data);
-                            }
-                            // 
-                            console.log('selectedMovieTitle: ' + selectedMovie.original_title + ' and release_date: ' + selectedMovie.release_date);
-                            console.log('posterin osoite: https://image.tmdb.org/t/p/original' + selectedMovie.poster_path)
-                            console.log('Arvosana: ' + selectedMovie.vote_average)
-                            console.log('movie ID: '+selectedMovie.id)
-                            year = parseInt(selectedMovie.release_date.split('-')[0]);
-                            console.log(year);
-                            document.querySelector('#kuva').src = `https://image.tmdb.org/t/p/original${selectedMovie.poster_path}`;
-                        } else {
-                            console.log('Ei tuloksia valituilla suodattimilla.');
-                        }
-                    })
-                    .catch(error => console.error('Virhe:', error));
-            } else {
-                console.log('Ei tuloksia valituilla suodattimilla.');
-            }
-        })
-        .catch(error => console.error('Virhe:', error));
-}
-
 const gameover = () => {
-    alert("Väärin meni. Aloitetaan alusta")
+    alert("Väärin meni. Sait pisteitä: "+peliAsetukset.pisteet +". Aloitetaan alusta!")
     location.reload();
 }
 
-const arvoElokuva = (data) => {
-    const randomIndex = Math.floor(Math.random() * data.results.length);
-    return data.results[randomIndex];
-};
+const arvoElokuva = () => {
+    let randomIndex = Math.floor(Math.random() * 20);
+    while (peliAsetukset.fetchData.results[randomIndex].poster_path == null) {
+        randomIndex = Math.floor(Math.random() * 20);
+    }
+    peliAsetukset.arvottuElokuva=peliAsetukset.fetchData.results[randomIndex]
+    //console.log('Arvottu elokuva:'+peliAsetukset.arvottuElokuva)
+    //console.log(typeof peliAsetukset.arvottuElokuva)
+}
+
+const arvoSivu = () => {
+    //console.log('arvotaan sivua')
+    const maxPages = 500; // TMDB:n maksimisivujen määrä
+    const resultsPerPage = 20; // Tulosten määrä per sivu TMDB:ssä   
+    //console.log('arvotaan sivua, totalResults:' +peliAsetukset.totalResults)
+    if (peliAsetukset.totalResults / resultsPerPage > maxPages) {
+        peliAsetukset.randomPage = Math.floor(Math.random() * maxPages) + 1;
+    } else {
+        peliAsetukset.randomPage = Math.floor(Math.random() * (Math.ceil(peliAsetukset.totalResults / resultsPerPage))) + 1;
+    }
+    //console.log('randomPage:' + peliAsetukset.randomPage)
+}
+
+//kuvan Tulostus
+const näytäKuva = () => {
+    let selectedMovie = peliAsetukset.arvottuElokuva;
+    //console.log('selectedMovieTitle: ' + selectedMovie.original_title + ' and release_date: ' + selectedMovie.release_date);
+    //console.log('posterin osoite: https://image.tmdb.org/t/p/original' + selectedMovie.poster_path);
+    //console.log('Arvosana: ' + selectedMovie.vote_average);
+    //console.log('movie ID: ' + selectedMovie.id);
+    peliAsetukset.year = parseInt(selectedMovie.release_date.split('-')[0]);
+    console.log(peliAsetukset.year);
+    document.querySelector('#kuva').src = `https://image.tmdb.org/t/p/original${selectedMovie.poster_path}`;
+}
+
+const haeData = async () => {
+    try {
+        const response = await fetch('https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=fi-FI&vote_average.gte=5&primary_release_date.gte=1960-01-01&with_original_language=' + peliAsetukset.spokenLanguage + '&page='+peliAsetukset.randomPage+'&sort_by=popularity.desc&with_genres=' + peliAsetukset.genreU, options);
+        const data = await response.json();
+        peliAsetukset.fetchData = data;
+        peliAsetukset.totalResults = data.total_results;
+        //console.log('data: ' + data);
+        //console.log('data.total_results:' + data.total_results);
+        //console.log('type of data:' + typeof data);
+        //console.log('fetchData: ' + peliAsetukset.fetchData);
+        //console.log('totalResults:' + peliAsetukset.totalResults);
+        //console.log('fetchData.totalResults: ' + peliAsetukset.fetchData.total_results);
+        //console.log('data haettu');
+        arvoSivu()
+        //console.log('sivu arvottu');
+        arvoElokuva()
+        //console.log('elokuva arvottu');
+        näytäKuva()
+    } catch (error) {
+        console.error('Virhe fetch-pyynnössä:', error);
+    }
+}

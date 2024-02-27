@@ -1,0 +1,11 @@
+form div{
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+form label {
+    display: inline-block;
+    width: 80px;
+}
+
+
