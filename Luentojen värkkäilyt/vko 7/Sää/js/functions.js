@@ -1,7 +1,7 @@
 'use strict'
 const url = 'https://api.openweathermap.org/data/2.5/weather?'
 const icon_url = 'https://openweathermap.org/img/wn/'
-const api_key = '3536300b91f576d6d4d504849529c501'
+const api_key = 'TÄHÄN API_KEY'
 const temp_span = document.querySelector('#temp')
 const speed_span = document.querySelector('#speed')
 const direction_span = document.querySelector('#direction')
